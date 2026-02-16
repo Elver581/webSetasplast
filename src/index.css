@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+
+:root {
+  --setasplast-primary: #198754;
+  --setasplast-dark: #146c43;
+  --setasplast-light: #20c997;
+  --setasplast-gradient: linear-gradient(90deg, #198754 0%, #0F3F2A 100%);
+
+}
+
+/* Clases de utilidad personalizadas */
+.text-setasplast {
+  color: var(--setasplast-primary);
+}
+
+.bg-setasplast {
+  background-color: var(--setasplast-primary);
+}
+
+.hover\:text-setasplast:hover {
+  color: var(--setasplast-primary);
+}
+
+.hover\:bg-setasplast:hover {
+  background-color: var(--setasplast-primary);
+}
+
+.hover\:bg-setasplast-dark:hover {
+  background-color: var(--setasplast-dark);
+}
+
+.bg-setasplast-dark {
+  background-color: var(--setasplast-dark);
+}
+
+.border-setasplast {
+  border-color: var(--setasplast-primary);
+}
+
+.bg-gradient-setasplast {
+  background: var(--setasplast-gradient);
+}
+
+/* Animación de degradado */
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+}
