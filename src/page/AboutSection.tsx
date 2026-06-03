@@ -17,15 +17,13 @@ import {
   FaDownload
 } from 'react-icons/fa';
 
-import setas22 from "../assets/pdf/22.pdf";
-import setas23 from "../assets/pdf/2023.pdf";
-import setas24 from "../assets/pdf/INFORME BIC SETASPLAST SAS BIC 2024.pdf";
-import gbjs23 from "../assets/pdf/REPORTE BIC GLOBAL BUSSINES 2024.pdf";
+import { useGetReportesBic } from '../hook/useGetReportesBic';
+import { API_BASE_URL } from '../api';
 
 
 const AboutSection = () => {
   const [activeTab, setActiveTab] = useState('historia');
-
+const { reportes, loading, error } = useGetReportesBic();
   // Timeline de la historia
   const timeline = [
     {
@@ -116,17 +114,6 @@ const AboutSection = () => {
     { id: 'vision', label: 'Visión', icon: FaEye },
     { id: 'valores', label: 'Valores BIC', icon: FaHeart }
   ];
-const informesBIC = [
-  { year: 2023, url: gbjs23 },
-
-  // Puedes añadir más años aquí
-];
-
-const informesBicSetas =[
-  { year: 2023, url: setas23 },
-  { year: 2024, url: setas24 }, 
-  { year: 2022, url: setas22 },
-]
 
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-white via-green-50/30 to-gray-50 relative overflow-hidden">
@@ -482,7 +469,7 @@ const informesBicSetas =[
                 </p>
               </motion.div>
 
-{/* Descargas BIC SetasPlast */}
+{/* Informes BIC dinámicos */}
 <motion.div
   className="mt-16 text-center"
   initial={{ opacity: 0, y: 20 }}
@@ -491,17 +478,20 @@ const informesBicSetas =[
   viewport={{ once: true }}
 >
   <h4 className="text-2xl font-bold text-setasplast-dark mb-4">
-    Informes Anuales BIC – SetasPlast S.A.S. BIC
+    Informes Anuales BIC
   </h4>
   <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-    Consulta los informes anuales de sostenibilidad, impacto social y ambiental de nuestra operación principal.
+    Consulta y descarga nuestros informes de sostenibilidad, impacto social y ambiental como Empresa BIC.
   </p>
 
+  {loading && <p className="text-gray-500">Cargando informes...</p>}
+  {error && <p className="text-red-500">Error al cargar informes.</p>}
+
   <div className="flex flex-wrap justify-center gap-4">
-    {informesBicSetas.map((item) => (
+    {reportes.map((reporte) => (
       <motion.a
-        key={item.year}
-        href={item.url}
+        key={reporte.uuid}
+        href={`${API_BASE_URL}/storage/${reporte.archivo_path}`}
         target="_blank"
         rel="noopener noreferrer"
         className="bg-white border border-setasplast text-setasplast-dark px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-setasplast hover:text-white transition-all duration-300 shadow-md"
@@ -509,39 +499,10 @@ const informesBicSetas =[
         whileTap={{ scale: 0.95 }}
       >
         <FaDownload className="text-lg" />
-        Informe {item.year}
-      </motion.a>
-    ))}
-  </div>
-</motion.div>
-              {/* Descargas por año */}
-<motion.div
-  className="mt-16 text-center"
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
-  viewport={{ once: true }}
->
-  <h4 className="text-2xl font-bold text-setasplast-dark mb-4">
-    Informes Anuales Global business js group S.A.S. BIC
-  </h4>
-  <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-    Consulta y descarga nuestros informes anuales de impacto social, ambiental y económico como Empresa BIC.
-  </p>
-
-  <div className="flex flex-wrap justify-center gap-4">
-    {informesBIC.map((item) => (
-      <motion.a
-        key={item.year}
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-white border border-setasplast text-setasplast-dark px-6 py-3 rounded-full font-semibold flex items-center gap-2 hover:bg-setasplast hover:text-white transition-all duration-300 shadow-md"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <FaDownload className="text-lg" />
-        Informe {item.year}
+        <span>
+          <span className="block text-xs opacity-70">{reporte.empresa.nombre}</span>
+          {reporte.nombre} – {new Date(reporte.fecha_reporte).getFullYear()}
+        </span>
       </motion.a>
     ))}
   </div>
