@@ -157,6 +157,14 @@ const Footer = () => {
                 <Link to="/politicas" className="text-setasplast hover:text-white mx-1 transition-colors duration-300">
                   TRATAMIENTO DE DATOS PERSONALES
                 </Link>
+                {' · '}
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event('setasplast:open-cookie-settings'))}
+                  className="text-setasplast hover:text-white transition-colors duration-300"
+                >
+                  CONFIGURAR COOKIES
+                </button>
               </p>
               <p className="text-gray-500 text-xs mt-1">
                 TODOS LOS DERECHOS RESERVADOS · BY: <a href="#" className="text-setasplast hover:text-white transition-colors duration-300">ETS</a>

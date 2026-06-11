@@ -294,7 +294,7 @@ const PrivacyPolicySection = () => {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600 mb-1">Sitio Web:</p>
-                        <p className="font-semibold text-gray-900">https://setasplast.com.co/</p>
+                        <p className="font-semibold text-gray-900">https://setasplast.com/</p>
                       </div>
                     </div>
                   </div>
@@ -617,12 +617,12 @@ const PrivacyPolicySection = () => {
                       <div>
                         <p className="font-semibold text-gray-900">Sitio Web:</p>
                         <a 
-                          href="https://setasplast.com.co/"
+                          href="https://setasplast.com/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-setasplast hover:text-setasplast-dark transition-colors duration-200"
                         >
-                          https://setasplast.com.co/
+                          https://setasplast.com/
                         </a>
                       </div>
                     </div>

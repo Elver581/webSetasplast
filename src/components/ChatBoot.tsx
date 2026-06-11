@@ -476,30 +476,21 @@ const startVoiceRecognition = () => {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             {/* Header */}
-            <motion.div 
-              className="bg-gradient-to-r from-[#198754] to-[#0F3F2A] text-white p-4 flex items-center justify-between"
-              layoutId="chat-header"
-            >
-              <div className="flex items-center">
-                <motion.div
-                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                >
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-white/20 mr-3">
-  <img src={gaia} alt="GAIA" className="w-full h-full object-cover" />
-</div>
-
-                </motion.div>
+            <div className="bg-gradient-to-r from-[#198754] to-[#0F3F2A] text-white px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white/30 flex-shrink-0">
+                  <img src={gaia} alt="GAIA" className="w-full h-full object-cover" />
+                </div>
                 <div>
-                  <h3 className="font-bold">SetasBot</h3>
-                  <motion.p 
-                    className="text-sm text-green-100"
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    En línea • IA Activada
-                  </motion.p>
+                  <h3 className="font-bold text-base leading-tight">GAIA</h3>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <motion.span
+                      className="w-2 h-2 bg-green-300 rounded-full inline-block"
+                      animate={{ opacity: [1, 0.4, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <p className="text-xs text-green-100">Asistente virtual · SetasPlast BIC</p>
+                  </div>
                 </div>
               </div>
               
@@ -511,7 +502,7 @@ const startVoiceRecognition = () => {
               >
                 <FaTimes />
               </motion.button>
-            </motion.div>
+            </div>
 
             {/* Área de mensajes */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
@@ -535,9 +526,7 @@ const startVoiceRecognition = () => {
                           }`}
                           whileHover={{ scale: 1.1 }}
                         >
-                          {message.sender === 'user' ? <FaUser /> : <div className="w-8 h-8 rounded-full overflow-hidden bg-white/20 mr-3">
-  <img src={gaia} alt="GAIA" className="w-full h-full object-cover" />
-</div>}
+                          {message.sender === 'user' ? <FaUser /> : <img src={gaia} alt="GAIA" className="w-full h-full object-cover rounded-full" />}
                         </motion.div>
 
                         {/* Burbuja de mensaje */}
@@ -553,13 +542,14 @@ const startVoiceRecognition = () => {
 
                           {/* Lista de elementos */}
                           {message.list && (
-                            <div className="mt-2 space-y-1">
+                            <ul className="mt-2 space-y-1">
                               {message.list.map((item, idx) => (
-                                <div key={idx} className="text-xs text-gray-600 flex items-center">
+                                <li key={idx} className="text-xs text-gray-600 flex items-start gap-1.5">
+                                  <span className="text-setasplast mt-0.5">✓</span>
                                   <span>{item}</span>
-                                </div>
+                                </li>
                               ))}
-                            </div>
+                            </ul>
                           )}
 
                           {/* Información de contacto */}
@@ -627,9 +617,9 @@ const startVoiceRecognition = () => {
                   exit={{ opacity: 0 }}
                 >
                   <div className="flex items-end space-x-2">
-             <div className="w-10 h-10 rounded-full overflow-hidden bg-white/20 mr-3">
-  <img src={gaia} alt="GAIA" className="w-full h-full object-cover" />
-</div>
+                    <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+                      <img src={gaia} alt="GAIA" className="w-full h-full object-cover" />
+                    </div>
 
                     <div className="bg-white rounded-2xl rounded-bl-md p-3 shadow-md">
                       <div className="flex space-x-1">
@@ -680,7 +670,7 @@ const startVoiceRecognition = () => {
                     type="text"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Escribe tu mensaje..."
                     className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-setasplast focus:border-transparent text-sm"
                   />

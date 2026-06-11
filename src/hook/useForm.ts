@@ -119,7 +119,7 @@ const registrarEvento = async (data: EventData): Promise<void> => {
 
 //Redirigir a una url
 
-    window.location.href = "https://setasplast.com.co";
+    window.location.href = "https://setasplast.com";
     setError({});
 
 
