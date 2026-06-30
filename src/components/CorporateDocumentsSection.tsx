@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {
   FaFileDownload,
   FaFilePdf,
-  FaClipboardList,
-  FaLeaf,
+
   FaCalendarAlt,
   FaUsers,
   FaIndustry,
@@ -14,25 +13,11 @@ import { useDocumentoCorporativo } from "../hook/useDocumentoCorporativo";
 
 const CorporateDocumentsSection: React.FC = () => {
   const { documents, loading, error } = useDocumentoCorporativo();
-  const [localDownloadCounts, setLocalDownloadCounts] = useState<Record<string, number>>({});
-
-  const getDownloadCount = (docId: string, apiCount: number) =>
-    apiCount + (localDownloadCounts[docId] ?? 0);
-
-  const totalDownloads = documents.reduce(
-    (sum, doc) => sum + getDownloadCount(doc.id, doc.downloadsCount),
-    0
-  );
-
   const handleDownload = (docId: string, downloadUrl: string) => {
     const link = document.createElement("a");
     link.href = downloadUrl;
     link.download = documents.find((doc) => doc.id === docId)?.title ?? "documento";
     link.click();
-    setLocalDownloadCounts((prev) => ({
-      ...prev,
-      [docId]: (prev[docId] ?? 0) + 1,
-    }));
   };
 
   const copyToClipboard = async (url: string, docTitle: string) => {
@@ -209,7 +194,7 @@ const CorporateDocumentsSection: React.FC = () => {
 
                     <div className="flex items-center gap-2">
                       <motion.button
-                        onClick={() => copyToClipboard(doc.downloadUrl, doc.title)}
+                        onClick={() => copyToClipboard(`${import.meta.env.VITE_API_BASE_URL}/api/corporate-documents/${doc.slug}/download`, doc.title)}
                         className="text-gray-600 hover:text-gray-800 p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors duration-300"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}

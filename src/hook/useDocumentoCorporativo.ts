@@ -45,6 +45,7 @@ interface ApiResponse {
 
 export interface DocumentoCorporativo {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;
@@ -98,6 +99,7 @@ function resolveColor(theme: string): string {
 function mapApiDocument(doc: ApiDocument): DocumentoCorporativo {
   return {
     id: doc.slug,
+    slug: doc.slug,
     title: doc.title,
     subtitle: doc.subtitle,
     description: doc.description,
@@ -111,9 +113,9 @@ function mapApiDocument(doc: ApiDocument): DocumentoCorporativo {
     category: doc.category,
     downloadUrl: doc.download_url,
     previewUrl: doc.preview_url,
-    downloadsCount: doc.downloads_count,
-    features: doc.features,
-    benefits: doc.benefits,
+    downloadsCount: doc.downloads_count ?? 0,
+    features: doc.features ?? [],
+    benefits: doc.benefits ?? [],
   };
 }
 
