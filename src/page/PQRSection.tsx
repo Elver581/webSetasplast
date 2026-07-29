@@ -182,7 +182,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       descripcion: 'Propuesta de mejora para nuestros productos o servicios',
       icon: FaThumbsUp,
       color: '#3b82f6',
-      tiempo: '30 días hábiles'
+      tiempo: '15 días hábiles'
     },
     {
       id: 'felicitacion',
@@ -190,7 +190,7 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       descripcion: 'Reconocimiento por un buen servicio o experiencia',
       icon: FaCommentDots,
       color: '#8b5cf6',
-      tiempo: '5 días hábiles'
+      tiempo: '15 días hábiles'
     }
   ];
 

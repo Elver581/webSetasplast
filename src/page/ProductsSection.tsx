@@ -543,23 +543,27 @@ const ProductsSection = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.button
+                <motion.a
+                  href="tel:+573112890067"
                   className="bg-white text-setasplast px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center space-x-2 hover:bg-green-50 transition-colors duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaPhone />
                   <span>Solicitar Cotización</span>
-                </motion.button>
-                
-                <motion.button
+                </motion.a>
+
+                <motion.a
+                  href="https://api.whatsapp.com/send/?phone=573105083525&text=Hola%20SetasPlast%20👋%2C%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20y%20soluciones.&type=phone_number&app_absent=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center space-x-2 hover:bg-white hover:text-setasplast transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaWhatsapp />
                   <span>Chat WhatsApp</span>
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           </div>

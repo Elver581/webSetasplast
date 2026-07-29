@@ -41,7 +41,7 @@ const ContactSection = () => {
       icon: FaPhone,
       title: 'Teléfono',
       content: '+57 3112890067',
-      detail: 'Lun - Vie: 8:00 AM - 6:00 PM',
+      detail: 'Lun - Vie: 8:00 AM - 05:00 PM',
       color: '#20c997'
     },
     {
@@ -51,13 +51,7 @@ const ContactSection = () => {
       detail: 'Respuestas en 24 horas',
       color: '#22c55e'
     },
-    {
-      icon: FaWhatsapp,
-      title: 'WhatsApp',
-      content: '+57 3112890067',
-      detail: 'Atención inmediata',
-      color: '#25d366'
-    }
+ 
   ];
 
 
@@ -164,13 +158,10 @@ const ContactSection = () => {
                   <h4 className="font-bold text-setasplast-dark">Horarios de Atención</h4>
                 </div>
                 <div className="text-sm text-gray-600 space-y-1">
-                  <p><strong>Lunes - Viernes:</strong> 8:00 AM - 6:00 PM</p>
-                  <p><strong>Sábados:</strong> 8:00 AM - 12:00 PM</p>
+                  <p><strong>Lunes - Viernes:</strong> 8:00 AM - 05:00 PM</p>
+                  <p><strong>Sábados:</strong>Cerrado</p>
                   <p><strong>Domingos:</strong> Cerrado</p>
-                  <p className="text-green-600 font-semibold mt-2">
-                    <FaWhatsapp className="inline mr-1" />
-                    WhatsApp 24/7 disponible
-                  </p>
+             
                 </div>
               </motion.div>
             </div>
