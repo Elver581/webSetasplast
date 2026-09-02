@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import {
+  getCorporateDocuments,
+  type ApiCorporateDocument,
+} from "../service/api";
+import {
   FaFileAlt,
   FaBook,
   FaShieldAlt,
@@ -15,29 +19,7 @@ import type { IconType } from "react-icons";
 // Tipos de la API
 // -------------------------------------------------------
 
-interface ApiDocument {
-  slug: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  long_description: string;
-  icon: string;
-  file_type: string;
-  file_size: string;
-  pages: number;
-  last_update: string;
-  category: string;
-  theme: string;
-  download_url: string;
-  preview_url: string;
-  downloads_count: number;
-  features: string[];
-  benefits: string[];
-}
-
-interface ApiResponse {
-  data: ApiDocument[];
-}
+type ApiDocument = ApiCorporateDocument;
 
 // -------------------------------------------------------
 // Tipo normalizado para el componente
@@ -130,8 +112,6 @@ interface UseDocumentoCorporativoReturn {
   refetch: () => void;
 }
 
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/corporate-documents`;
-
 export function useDocumentoCorporativo(): UseDocumentoCorporativoReturn {
   const [documents, setDocuments] = useState<DocumentoCorporativo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -145,10 +125,8 @@ export function useDocumentoCorporativo(): UseDocumentoCorporativoReturn {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
-        const json: ApiResponse = await res.json();
-        if (!cancelled) setDocuments(json.data.map(mapApiDocument));
+        const res = await getCorporateDocuments();
+        if (!cancelled) setDocuments(res.data.data.map(mapApiDocument));
       } catch (err) {
         if (!cancelled)
           setError(err instanceof Error ? err.message : "Error desconocido");

@@ -56,3 +56,28 @@
 .animate-gradient-x {
   animation: gradient-x 15s ease infinite;
 }
+
+/* Slider infinito (marquee) */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-x {
+  animation: marquee-x var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-pause:hover .animate-marquee-x {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-x {
+    animation: none;
+  }
+}

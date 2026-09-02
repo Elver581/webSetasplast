@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowRight, FaTree, FaLeaf } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { ColombiaMap } from "./ColombiaMap"; 
+import { ColombiaMap } from "./ColombiaMap";
 
 import { Link } from "react-router-dom";
+
+import heroVideo from "../assets/video/video.mp4";
 
 
 // ----------------------
@@ -78,18 +80,26 @@ const HeroBanner: React.FC = () => {
   // ----------------------
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Fondo degradado */}
-      <div className="absolute inset-0 bg-gradient-to-br from-setasplast-dark via-setasplast to-green-900 animate-gradient-x"
-     />
-      <div className="absolute inset-0 "
-     style={{
-  background: `
-     
-    linear-gradient(145deg, #063d2d 0%, #0f5a3b 35%, #259f72 100%),
-    radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 70%)
-  `,
-}}
- />
+      {/* Video de fondo */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+
+      {/* Overlay degradado para legibilidad */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            linear-gradient(145deg, rgba(6,61,45,0.85) 0%, rgba(15,90,59,0.75) 35%, rgba(37,159,114,0.6) 100%),
+            radial-gradient(circle at top left, rgba(255,255,255,0.1), transparent 70%)
+          `,
+        }}
+      />
 
       {/* Hojas flotantes */}
       <div className="absolute inset-0 overflow-hidden">

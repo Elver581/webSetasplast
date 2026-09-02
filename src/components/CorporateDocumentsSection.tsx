@@ -10,6 +10,7 @@ import {
   FaShare,
 } from "react-icons/fa";
 import { useDocumentoCorporativo } from "../hook/useDocumentoCorporativo";
+import { corporateDocumentDownloadUrl } from "../service/api";
 
 const CorporateDocumentsSection: React.FC = () => {
   const { documents, loading, error } = useDocumentoCorporativo();
@@ -194,7 +195,7 @@ const CorporateDocumentsSection: React.FC = () => {
 
                     <div className="flex items-center gap-2">
                       <motion.button
-                        onClick={() => copyToClipboard(`${import.meta.env.VITE_API_BASE_URL}/api/corporate-documents/${doc.slug}/download`, doc.title)}
+                        onClick={() => copyToClipboard(corporateDocumentDownloadUrl(doc.slug), doc.title)}
                         className="text-gray-600 hover:text-gray-800 p-2 rounded-lg border border-gray-300 hover:border-gray-400 transition-colors duration-300"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}

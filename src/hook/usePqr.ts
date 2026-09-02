@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { enviarPqr } from "../service/api";
 
 interface ErrorFields {
   nombre?: string;
@@ -61,15 +61,7 @@ export const usePqr = () => {
 
 
     try {
-      const response = await axios.post(
-        "https://api.setas.etstechnolgy.com/api/pqr",
-       
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      
+      const response = await enviarPqr(formData);
 
       toast.success(" PQR enviada correctamente");
       setCodigoRadicado(response.data.codigo_radicado);

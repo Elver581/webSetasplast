@@ -18,7 +18,7 @@ import {
 } from 'react-icons/fa';
 
 import { useGetReportesBic } from '../hook/useGetReportesBic';
-import { API_BASE_URL } from '../api';
+import { API_BASE_URL } from '../service/api';
 
 
 const AboutSection = () => {

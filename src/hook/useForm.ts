@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import {
+  enviarContacto,
+  registrarEvento as registrarEventoApi,
+} from "../service/api";
 
 // ✅ Tipado para los posibles errores
 interface ErrorFields {
@@ -71,10 +74,7 @@ export const useForm = (): UseFormReturn => {
         mensaje: mensajeRef.current?.value || "",
       };
 
-      const response = await axios.post(
-        "https://api.setas.etstechnolgy.com/api/contacto",
-        payload
-      );
+      const response = await enviarContacto(payload);
 
       toast.success(response.data.message || "Formulario enviado correctamente ✅");
       // Limpiar formulario
@@ -110,10 +110,7 @@ const registrarEvento = async (data: EventData): Promise<void> => {
       email: data.email,
     };
 
-    const response = await axios.post(
-      "https://api.setas.etstechnolgy.com/api/eventos",
-      payload
-    );
+    const response = await registrarEventoApi(payload);
 
     toast.success(response.data.message || "Registro de evento exitoso ");
 

@@ -9,6 +9,7 @@ import PrivacyPolicySection from "./page/PrivacyPolySection"
 import ReforestationSection from "./page/ReforestationSection"
 import EventRegistrationForm from "./components/EventRegistrationForm"
 import CookieConsent from "./components/CookieConsent"
+import VentanaWebModal from "./components/VentanaWebModal"
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
   </Route>
   <Route path="register" element={<EventRegistrationForm />} />
 </Routes>
+<VentanaWebModal />
 <CookieConsent />
     </>
   )
