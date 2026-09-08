@@ -67,6 +67,7 @@ export interface ApiCertificacion {
   id: number;
   uuid: string;
   titulo: string;
+  titulo_color: string | null;
   subtitulo: string;
   descripcion: string;
   logo: string;

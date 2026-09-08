@@ -20,6 +20,8 @@ export interface Certificacion {
 // Paleta de la sección de certificaciones (se asigna por posición)
 const COLOR_PALETTE = ["#198754", "#22c55e", "#146c43", "#20c997"];
 
+const HEX_RE = /^#?[0-9a-fA-F]{6}$/;
+
 function hexToRgba(hex: string, alpha: number): string {
   const clean = hex.replace("#", "");
   const r = parseInt(clean.slice(0, 2), 16);
@@ -32,7 +34,14 @@ function mapCertificacion(
   cert: ApiCertificacion,
   index: number
 ): Certificacion {
-  const color = COLOR_PALETTE[index % COLOR_PALETTE.length];
+  // El color del título viene del backend (titulo_color); si no es un hex
+  // válido se usa la paleta por posición como respaldo.
+  const apiColor = cert.titulo_color?.trim() ?? "";
+  const color = HEX_RE.test(apiColor)
+    ? apiColor.startsWith("#")
+      ? apiColor
+      : `#${apiColor}`
+    : COLOR_PALETTE[index % COLOR_PALETTE.length];
   return {
     id: String(cert.id),
     uuid: cert.uuid,

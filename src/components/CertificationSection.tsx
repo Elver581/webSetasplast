@@ -57,6 +57,8 @@ const CertificationCard = ({ cert }: { cert: Certificacion }) => (
 const CertificationsSection = () => {
   const { certificaciones, loading, error } = useGetCertificaciones();
 
+  console.log('Certificaciones obtenidas:', certificaciones);
+
   // Solo animamos el slider cuando hay suficientes tarjetas para llenar el ancho.
   // Con pocos registros se muestran centrados y estáticos (sin duplicar).
   const MIN_PARA_LOOP = 4;
