@@ -43,8 +43,10 @@ const loadGoogleAnalytics = () => {
 
   setAnalyticsDisabled(false);
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.gtag = (...args: unknown[]) => {
-    analyticsWindow.dataLayer?.push(args);
+  // gtag.js solo procesa objetos `arguments`, no arrays: no cambiar a (...args)
+  analyticsWindow.gtag = function () {
+    // eslint-disable-next-line prefer-rest-params
+    analyticsWindow.dataLayer?.push(arguments);
   };
   analyticsWindow.gtag('js', new Date());
   analyticsWindow.gtag('config', GA_MEASUREMENT_ID);

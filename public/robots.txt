@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /register
+
+Sitemap: https://setasplast.com/sitemap.xml

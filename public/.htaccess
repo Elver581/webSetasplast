@@ -1,11 +1,141 @@
+# ===================================================================
+# SetasPlast SAS BIC — Apache config para la SPA (Vite + React Router)
+# Este archivo se copia tal cual a /dist al hacer `npm run build`.
+# ===================================================================
+
+# -------------------------------------------------------------------
+# 1. Enrutado del lado del cliente (React Router)
+#    Cualquier ruta que no sea un archivo/carpeta real -> index.html
+# -------------------------------------------------------------------
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+  RewriteEngine On
+  RewriteBase /
 
-    # No reescribir archivos o directorios existentes
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+  # Bloquear archivos y carpetas ocultos (.env, .git, ...), salvo /.well-known
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule (^|/)\.(?!well-known) - [F,L]
 
-    # Redirigir todo al index.html para React Router
-    RewriteRule ^ index.html [L]
+  # Forzar HTTPS (descomenta si el dominio ya tiene certificado SSL)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Redirigir www -> sin www (opcional, descomenta y ajusta)
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+  # No reescribir archivos ni directorios existentes
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Peticiones a archivos estáticos que NO existen (.png, .js, .xml...) -> 404 real
+  # (evita que favicons/imágenes faltantes devuelvan el HTML de la SPA)
+  RewriteRule \.(png|jpe?g|gif|webp|svg|ico|css|js|mjs|map|json|xml|txt|woff2?|ttf|otf|eot|mp4|webm|pdf|webmanifest)$ - [R=404,L]
+
+  # Todo lo demás va al index.html de la SPA (React Router decide: Home o 404 con noindex)
+  RewriteRule ^ index.html [L]
 </IfModule>
+
+# -------------------------------------------------------------------
+# 2. Compresión
+# -------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE application/rss+xml application/atom+xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml font/woff2
+</IfModule>
+
+# -------------------------------------------------------------------
+# 3. Cache del navegador
+#    Los assets de Vite llevan hash en el nombre -> cache larga.
+#    index.html NUNCA se cachea para que se detecten nuevas versiones.
+# -------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML: sin cache
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Assets con hash: 1 año inmutable
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # Imágenes / fuentes / media
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # index.html siempre revalidado
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+
+  # Assets versionados: inmutables
+  <FilesMatch "\.(css|js|mjs|woff2?|ttf|otf|eot|svg|png|jpe?g|webp|gif|ico|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # -----------------------------------------------------------------
+  # 4. Cabeceras de seguridad
+  # -----------------------------------------------------------------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # HSTS (activa solo con HTTPS estable en todo el dominio)
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Quitar cabecera que revela la versión de PHP/Apache
+  Header unset X-Powered-By
+</IfModule>
+
+# -------------------------------------------------------------------
+# 5. MIME types (por si el hosting no los define)
+# -------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/javascript              js mjs
+  AddType text/css                            css
+  AddType image/svg+xml                       svg svgz
+  AddType image/webp                          webp
+  AddType application/manifest+json           webmanifest
+  AddType font/woff                           woff
+  AddType font/woff2                          woff2
+  AddType video/mp4                           mp4
+</IfModule>
+
+# -------------------------------------------------------------------
+# 6. Endurecimiento
+# -------------------------------------------------------------------
+# Sin listado de directorios
+Options -Indexes
+
+# Bloquear acceso a archivos sensibles y source maps
+<FilesMatch "\.(env|ini|log|sh|bak|config|map)$">
+  Require all denied
+</FilesMatch>
+
+# 404 para archivos inexistentes: respuesta mínima (las rutas de la SPA las cubre el rewrite)
+ErrorDocument 404 "404 - Recurso no encontrado"
+
+# UTF-8 por defecto
+AddDefaultCharset UTF-8

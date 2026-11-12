@@ -10,6 +10,8 @@ import ReforestationSection from "./page/ReforestationSection"
 import EventRegistrationForm from "./components/EventRegistrationForm"
 import CookieConsent from "./components/CookieConsent"
 import VentanaWebModal from "./components/VentanaWebModal"
+import Seo from "./components/Seo"
+import NotFound from "./page/NotFound"
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
 
   return (
     <>
+<Seo />
 <Routes>
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
@@ -26,6 +29,7 @@ function App() {
     <Route path="pqr" element={<PQRSection />} />
     <Route path="politica-privacidad" element={<PrivacyPolicySection />} />
     <Route path="reforestacion" element={<ReforestationSection />} />
+    <Route path="*" element={<NotFound />} />
     
   </Route>
   <Route path="register" element={<EventRegistrationForm />} />
