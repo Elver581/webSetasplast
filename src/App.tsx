@@ -6,6 +6,7 @@ import ContactSection from "./page/ContactoSection"
 import ProductsSection from "./page/ProductsSection"
 import PQRSection from "./page/PQRSection"
 import PrivacyPolicySection from "./page/PrivacyPolySection"
+import EliminacionDatosSection from "./page/EliminacionDatosSection"
 import ReforestationSection from "./page/ReforestationSection"
 import EventRegistrationForm from "./components/EventRegistrationForm"
 import CookieConsent from "./components/CookieConsent"
@@ -28,6 +29,7 @@ function App() {
     <Route path="productos" element={<ProductsSection />} />
     <Route path="pqr" element={<PQRSection />} />
     <Route path="politica-privacidad" element={<PrivacyPolicySection />} />
+    <Route path="eliminacion-datos" element={<EliminacionDatosSection />} />
     <Route path="reforestacion" element={<ReforestationSection />} />
     <Route path="*" element={<NotFound />} />
     

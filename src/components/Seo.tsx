@@ -15,6 +15,7 @@ const PAGES: Record<string, { title: string; description: string }> = {
   '/contact': { title: `Contacto | ${NAME}`, description: 'Contáctanos para cotizaciones y consultas sobre productos SetasPlast.' },
   '/pqr': { title: `PQR | ${NAME}`, description: 'Radica peticiones, quejas y reclamos en SetasPlast SAS BIC.' },
   '/politica-privacidad': { title: `Política de privacidad | ${NAME}`, description: 'Política de privacidad y tratamiento de datos de SetasPlast SAS BIC.' },
+  '/eliminacion-datos': { title: `Eliminación de datos | ${NAME}`, description: 'Cómo solicitar la eliminación de tus datos personales en SetasPlast SAS BIC.' },
 };
 
 const setMeta = (selector: string, create: () => HTMLElement, attr: string, value: string) => {

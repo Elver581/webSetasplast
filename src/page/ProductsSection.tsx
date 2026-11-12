@@ -1,4 +1,5 @@
 import  { useState } from 'react';
+import { trackWhatsAppClick } from '../utils/tracking';
 import { motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
 
@@ -557,6 +558,7 @@ const ProductsSection = () => {
                   href="https://api.whatsapp.com/send/?phone=573105083525&text=Hola%20SetasPlast%20👋%2C%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20y%20soluciones.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('products_cta')}
                   className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center space-x-2 hover:bg-white hover:text-setasplast transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}

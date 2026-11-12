@@ -1,5 +1,6 @@
 
 import { motion } from 'framer-motion';
+import { trackWhatsAppClick } from '../utils/tracking';
 
 import {useForm} from '../hook/useForm'
 import { 
@@ -429,6 +430,7 @@ const ContactSection = () => {
                 href="https://wa.me/573001234567?text=Hola%20SetasPlast,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('contact_section')}
                 className="bg-white text-setasplast px-6 py-3 rounded-full font-semibold flex items-center space-x-2 hover:bg-green-50 transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
