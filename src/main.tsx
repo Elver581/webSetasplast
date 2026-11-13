@@ -4,6 +4,10 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { capturarAtribucion } from './utils/attribution'
+
+// Guarda la fuente de la visita (UTM, gclid, fbclid) antes de pintar nada.
+capturarAtribucion()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

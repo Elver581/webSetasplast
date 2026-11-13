@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { trackWhatsAppClick } from '../utils/tracking';
+import WhatsAppLink from '../components/WhatsAppLink';
 
 import {useForm} from '../hook/useForm'
 import { 
@@ -426,18 +426,14 @@ const ContactSection = () => {
               Contáctanos por WhatsApp para obtener una respuesta inmediata a tus consultas comerciales.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.a
-                href="https://wa.me/573001234567?text=Hola%20SetasPlast,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick('contact_section')}
+              <WhatsAppLink
+                boton="contact_section"
+                mensaje="Hola SetasPlast 👋, me interesa conocer más sobre sus productos."
                 className="bg-white text-setasplast px-6 py-3 rounded-full font-semibold flex items-center space-x-2 hover:bg-green-50 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 <FaWhatsapp className="text-xl" />
                 <span>Chat por WhatsApp</span>
-              </motion.a>
+              </WhatsAppLink>
               
               <motion.a
                 href="tel:+5712345678"

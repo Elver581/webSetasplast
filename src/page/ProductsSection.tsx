@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { trackWhatsAppClick } from '../utils/tracking';
+import WhatsAppLink from '../components/WhatsAppLink';
 import { motion } from 'framer-motion';
 import type { IconType } from 'react-icons';
 
@@ -419,15 +419,14 @@ const ProductsSection = () => {
                       <FaArrowRight className="text-sm" />
                     </motion.button>
                     
-                    <motion.button
-                  
+                    <WhatsAppLink
+                      boton="product_card"
+                      mensaje={`Hola SetasPlast 👋, me interesa cotizar: ${product.name}.`}
                       className="bg-green-500/10 text-green-600 p-2 rounded-lg hover:bg-green-500 hover:text-white transition-all duration-300"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
                       title="Contactar por WhatsApp"
                     >
                       <FaWhatsapp className="text-sm" />
-                    </motion.button>
+                    </WhatsAppLink>
                   </div>
                 </div>
               </div>
@@ -554,18 +553,13 @@ const ProductsSection = () => {
                   <span>Solicitar Cotización</span>
                 </motion.a>
 
-                <motion.a
-                  href="https://api.whatsapp.com/send/?phone=573105083525&text=Hola%20SetasPlast%20👋%2C%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20y%20soluciones.&type=phone_number&app_absent=0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackWhatsAppClick('products_cta')}
+                <WhatsAppLink
+                  boton="products_cta"
                   className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center space-x-2 hover:bg-white hover:text-setasplast transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   <FaWhatsapp />
                   <span>Chat WhatsApp</span>
-                </motion.a>
+                </WhatsAppLink>
               </div>
             </motion.div>
           </div>
